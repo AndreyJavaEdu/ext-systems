@@ -1,0 +1,12 @@
+      PersonRequest pr = new PersonRequest();
+        pr.setSurname("Васильев");
+        pr.setGivenName("Павел");
+        pr.setPatronomic("Николаевич");
+        pr.setDateOfBirth(LocalDate.of(1995,3,18));
+        pr.setStreetCode(1);
+        pr.setBuilding("5");
+        pr.setExtension("1");
+        pr.setApartment("84");
+
+        PersonCheckDao dao = new PersonCheckDao();
+        PersonResponse ps = dao.checkPerson(pr);
