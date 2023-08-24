@@ -12,27 +12,44 @@ public class PersonCheckDao {
                     "join cr_person p on (ap.person_id=p.person_id) " +
                     "join cr_address a on (ap.address_id=a.address_id) " +
                     "WHERE " +
-                    "upper(p.surname)=upper(?) " +
+                    "CURRENT_DATE >= ap.start_date and (CURRENT_DATE <= ap.end_date or ap.end_date is null) "+
+                    "and upper(p.surname)=upper(?) " +
                     "and upper(p.given_name)=upper(?) " +
                     "and upper(p.patronomyc)=upper(?) " +
                     "and p.date_of_birth=? " +
                     "and a.street_code=? " +
-                    "and upper(a.building)=upper(?) " +
-                    "and upper(a.extension)=upper(?) " +
-                    "and upper(a.apartment)=upper(?); ";
+                    "and upper(a.building)=upper(?) " ;
     public PersonResponse checkPerson(PersonRequest request) throws PersonCheckException {
         PersonResponse response = new PersonResponse();
-        try(Connection con = getConnection();
-            PreparedStatement stmt = con.prepareStatement(SQL_REQUEST)){
-            stmt.setString(1, request.getSurname());
-            stmt.setString(2, request.getGivenName());
-            stmt.setString(3, request.getPatronomic());
-            stmt.setDate(4, java.sql.Date.valueOf(request.getDateOfBirth()));
-            stmt.setInt(5, request.getStreetCode());
-            stmt.setString(6, request.getBuilding());
-            stmt.setString(7, request.getExtension());
-            stmt.setString(8, request.getApartment());
 
+        String sql = SQL_REQUEST;
+        if(request.getExtension() != null){
+            sql += "and upper(a.extension)=upper(?) ";
+        }else {
+            sql += "and a.extension is null ";
+        }
+        if(request.getApartment() !=null){
+            sql+="and upper(a.apartment)=upper(?); ";
+        }else {
+            sql += "and a.apartment is null ";
+        }
+
+        try(Connection con = getConnection();
+            PreparedStatement stmt = con.prepareStatement(sql)){
+
+            int count =1;
+            stmt.setString(count++, request.getSurname());
+            stmt.setString(count++, request.getGivenName());
+            stmt.setString(count++, request.getPatronomic());
+            stmt.setDate(count++, java.sql.Date.valueOf(request.getDateOfBirth()));
+            stmt.setInt(count++, request.getStreetCode());
+            stmt.setString(count++, request.getBuilding());
+            if(request.getExtension() != null) {
+                stmt.setString(count++, request.getExtension());
+            }
+            if(request.getApartment() != null) {
+                stmt.setString(count++, request.getApartment());
+            }
 
             ResultSet rs = stmt.executeQuery();
             if(rs.next()){
