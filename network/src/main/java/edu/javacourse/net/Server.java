@@ -3,6 +3,7 @@ package edu.javacourse.net;
 import java.io.*;
 import java.net.ServerSocket;
 import java.net.Socket;
+import java.time.LocalDateTime;
 
 public class Server {
     public static void main(String[] args) throws IOException, InterruptedException {
@@ -38,14 +39,13 @@ class SimpleServer extends Thread {
             String[]lines = request.split("\\s+");
             String command=lines[0];
             String userName = lines[1];
-            System.out.println("Server got string 1: " + command);
+            System.out.println("Server got string 1: " + command );
             System.out.println("Server got string 2: " + userName);
 //            Thread.sleep(2000);
 
 
-            StringBuilder sb = new StringBuilder("Hello, ");
-            sb.append(userName);
-            bw.write(sb.toString());
+            String response = buildResponse(command, userName);
+            bw.write(response);
             bw.newLine();
             bw.flush();
 
@@ -56,6 +56,16 @@ class SimpleServer extends Thread {
         }catch (Exception ex){
             ex.printStackTrace(System.out);
         }
+    }
+
+    private String buildResponse(String command, String userName){
+            switch (command){
+                case "HELLO": return "Hello, "+ userName;
+                case "MORNING": return "Good morning, "+ userName;
+                case "DAY": return "Good day, "+ userName;
+                case "EVENING": return "Good evening, "+ userName;
+                default:  return "Hi, "+ userName;
+            }
     }
 
 }
