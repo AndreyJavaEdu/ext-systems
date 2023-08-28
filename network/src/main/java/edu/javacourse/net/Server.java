@@ -3,18 +3,41 @@ package edu.javacourse.net;
 import java.io.*;
 import java.net.ServerSocket;
 import java.net.Socket;
-import java.time.LocalDateTime;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.Properties;
 
 public class Server {
     public static void main(String[] args) throws IOException, InterruptedException {
         ServerSocket socket = new ServerSocket(25225, 2000); //Серверный сокет и ему передаем порт который он слушает
-
+        Map<String, Greetable> handlers = loadHandlers();
         System.out.println("Server started");
         while (true) {
             Socket client = socket.accept();//повисаем и ждем изменений
-            new SimpleServer(client).start();
+            new SimpleServer(client, handlers ).start();
 
         }
+    }
+
+    private static Map<String, Greetable> loadHandlers() {
+        Map<String, Greetable> result = new HashMap<>();
+
+            try(InputStream is = Server.class.getClassLoader().getResourceAsStream("server.properties")){
+                Properties properties = new Properties();
+                properties.load(is);
+                for(Object command : properties.keySet()){
+                    String className = properties.getProperty(command.toString());
+                    Class<Greetable> cl = (Class<Greetable>) Class.forName(className);
+
+                    Greetable handler = cl.getConstructor().newInstance(); //создаем объект нужного класса и кладем его в Map
+                    result.put(command.toString(), handler );
+
+                }
+            }catch (Exception ex) {
+                ex.printStackTrace();
+                throw new  RuntimeException (ex);
+            }
+        return result;
     }
 
 
@@ -22,8 +45,10 @@ public class Server {
 
 class SimpleServer extends Thread {
     private Socket client;
-    public SimpleServer(Socket client){
+    private Map<String, Greetable> handlers;
+    public SimpleServer(Socket client, Map<String, Greetable> handlers){
         this.client=client;
+        this.handlers=handlers;
     }
     @Override
     public void run() {
@@ -59,13 +84,11 @@ class SimpleServer extends Thread {
     }
 
     private String buildResponse(String command, String userName){
-            switch (command){
-                case "HELLO": return "Hello, "+ userName;
-                case "MORNING": return "Good morning, "+ userName;
-                case "DAY": return "Good day, "+ userName;
-                case "EVENING": return "Good evening, "+ userName;
-                default:  return "Hi, "+ userName;
+            Greetable handler = handlers.get(command);
+            if(handler != null){
+                return handler.buildResponse(userName);
             }
+            return "Hello " + userName;
     }
 
 }
