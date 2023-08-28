@@ -1,8 +1,7 @@
-package edu.javacourse.net;
+package javacourse.net;
 
 import java.io.*;
 import java.net.Socket;
-import java.time.LocalDateTime;
 
 public class Client {
     public static void main(String[] args) throws IOException {

@@ -1,4 +1,4 @@
-package edu.javacourse.net;
+package javacourse.net;
 
 import java.io.*;
 import java.net.ServerSocket;
