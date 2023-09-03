@@ -1,6 +1,7 @@
 package edu.javapetproject.city.web;
 
 import edu.javapetproject.city.dao.PersonCheckDao;
+import edu.javapetproject.city.dao.PoolConnectionBuilder;
 import edu.javapetproject.city.domain.PersonRequest;
 import edu.javapetproject.city.domain.PersonResponse;
 import edu.javapetproject.city.exception.PersonCheckException;
@@ -26,6 +27,7 @@ public class CheckPersonServlet extends HttpServlet {
     public void init() throws ServletException {
         logger.info("Servlet is created");
         dao = new PersonCheckDao();
+        dao.setConnectionBuilder(new PoolConnectionBuilder());
     }
 
 
