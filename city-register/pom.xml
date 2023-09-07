@@ -14,6 +14,8 @@
         <maven.compiler.target>8</maven.compiler.target>
         <slf4j.version>2.0.7</slf4j.version>
         <logf4j.version>2.20.0</logf4j.version>
+        <jersey.version>2.28</jersey.version>
+        <jaxb.version>2.3.1</jaxb.version>
     </properties>
 
     <build>
@@ -34,6 +36,7 @@
                     <version>3.4.0</version>
                 <configuration>
                     <failOnMissingWebXml>false</failOnMissingWebXml>
+                    <outputDirectory>C:\Java\apache-tomcat-9.0.80\webapps\</outputDirectory>
                 </configuration>
             </plugin>
         </plugins>
@@ -82,8 +85,23 @@
             <artifactId>jersey-hk2</artifactId>
             <version>2.28</version>
         </dependency>
+<!--       //для преобразования объектов в json или в xml -->
+        <dependency>
+            <groupId>org.glassfish.jersey.media</groupId>
+            <artifactId>jersey-media-moxy</artifactId>
+            <version>${jersey.version}</version>
+        </dependency>
 
-<!--        <dependency>-->
+        <dependency>
+            <groupId>javax.xml.bind</groupId>
+            <artifactId>jaxb-api</artifactId>
+            <version>${jaxb.version}</version>
+        </dependency>
+
+
+
+
+        <!--        <dependency>-->
 <!--            <groupId>jakarta.servlet</groupId>-->
 <!--            <artifactId>jakarta.servlet-api</artifactId>-->
 <!--            <version>6.0.0</version>-->
