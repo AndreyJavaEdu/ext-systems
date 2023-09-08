@@ -31,6 +31,7 @@ public class CheckPersonService {
     @Produces(MediaType.APPLICATION_JSON)
     @Consumes(MediaType.APPLICATION_JSON)
     public PersonResponse checkPerson(PersonRequest request) throws PersonCheckException {
+
         logger.info(request.toString());
         return dao.checkPerson(request);
     }

@@ -8,7 +8,7 @@ public class PersonRequest {
     private String givenName;
     private String patronomic;
     @XmlJavaTypeAdapter(value = LocalDateAdapter.class)
-    private LocalDate DateOfBirth;
+    private LocalDate dateOfBirth;
     private Integer streetCode;
     private String building;
     private String extension;
@@ -39,11 +39,11 @@ public class PersonRequest {
     }
 
     public LocalDate getDateOfBirth() {
-        return DateOfBirth;
+        return dateOfBirth;
     }
 
     public void setDateOfBirth(LocalDate dateOfBirth) {
-        DateOfBirth = dateOfBirth;
+        this.dateOfBirth = dateOfBirth;
     }
 
     public Integer getStreetCode() {
@@ -84,7 +84,7 @@ public class PersonRequest {
                 "surname='" + surname + '\'' +
                 ", givenName='" + givenName + '\'' +
                 ", patronomic='" + patronomic + '\'' +
-                ", DateOfBirth=" + DateOfBirth +
+                ", DateOfBirth=" + dateOfBirth +
                 ", streetCode=" + streetCode +
                 ", building='" + building + '\'' +
                 ", extension='" + extension + '\'' +
