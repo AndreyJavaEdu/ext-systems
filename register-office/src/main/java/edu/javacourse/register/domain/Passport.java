@@ -1,12 +1,25 @@
 package edu.javacourse.register.domain;
 
-import java.time.LocalDate;
+import jakarta.persistence.*;
 
+import java.time.LocalDate;
+@Entity
+@Table(name = "ro_passport")
 public class Passport {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name="passport_id")
     private Long passportId;
+@ManyToOne(cascade = CascadeType.REFRESH, fetch = FetchType.LAZY)
+@JoinColumn(name = "person_id")
+    private Person person;
+    @Column(name="number")
     private String number;
-    private String serial;
+    @Column(name="seria")
+    private String seria;
+    @Column(name="date_issue")
     private LocalDate issueDate;
+    @Column(name="issue_department")
     private String issueDepartment;
 
     public Long getPassportId() {
@@ -25,12 +38,12 @@ public class Passport {
         this.number = number;
     }
 
-    public String getSerial() {
-        return serial;
+    public String getSeria() {
+        return seria;
     }
 
-    public void setSerial(String serial) {
-        this.serial = serial;
+    public void setSeria(String seria) {
+        this.seria = seria;
     }
 
     public LocalDate getIssueDate() {
