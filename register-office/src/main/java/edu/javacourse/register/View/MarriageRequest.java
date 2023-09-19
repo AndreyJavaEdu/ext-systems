@@ -1,4 +1,4 @@
-package edu.javacourse.register.business.View;
+package edu.javacourse.register.View;
 
 import java.io.Serializable;
 import java.time.LocalDate;
