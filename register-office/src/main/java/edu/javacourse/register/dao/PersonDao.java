@@ -4,6 +4,7 @@ import edu.javacourse.register.domain.Person;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.EntityManagerFactory;
 import jakarta.persistence.Persistence;
+import jakarta.persistence.Query;
 
 import java.util.List;
 
@@ -16,6 +17,9 @@ public class PersonDao {
     }
 
     public List<Person> findPersons () {
-        return entityManager.createQuery("SELECT p FROM Person p").getResultList();
+        Query query = entityManager.createNamedQuery("Person.findPersons");
+        Query personId = query.setParameter("personId", 3L);
+        List resultList = query.getResultList();
+        return  resultList;
     }
 }
