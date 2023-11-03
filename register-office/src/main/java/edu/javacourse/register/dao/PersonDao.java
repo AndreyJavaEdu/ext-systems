@@ -1,20 +1,14 @@
 package edu.javacourse.register.dao;
 
 import edu.javacourse.register.domain.Person;
-import jakarta.persistence.EntityManager;
-import jakarta.persistence.EntityManagerFactory;
-import jakarta.persistence.Persistence;
-import jakarta.persistence.Query;
 
+
+import javax.persistence.*;
 import java.util.List;
 
 public class PersonDao {
+    @PersistenceContext
     private EntityManager entityManager;
-
-    public PersonDao() {
-        EntityManagerFactory factory = Persistence.createEntityManagerFactory("Persistence");
-        entityManager = factory.createEntityManager();
-    }
 
     public List<Person> findPersons () {
         Query query = entityManager.createNamedQuery("Person.findPersons");

@@ -1,7 +1,11 @@
 package edu.javacourse.register.domain;
 
-import jakarta.persistence.*;
 
+
+import javax.persistence.*;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Table;
 import java.time.LocalDate;
 @Entity
 @Table(name = "ro_passport")
