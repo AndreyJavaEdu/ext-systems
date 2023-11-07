@@ -1,7 +1,8 @@
 package edu.javacourse.register.domain;
 
-import jakarta.persistence.*;
 
+
+import javax.persistence.*;
 import java.time.LocalDate;
 import java.util.List;
 @Entity
@@ -13,7 +14,7 @@ import java.util.List;
                 "LEFT join fetch p.passports ps LEFT JOIN fetch p.birthCertificate " +
                 "WHERE p.personId = :personId ")
 })
-public class Person {
+public abstract class  Person {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name="person_id")
