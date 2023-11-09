@@ -12,7 +12,6 @@ public class PersonDao {
 
     public List<Person> findPersons () {
         Query query = entityManager.createNamedQuery("Person.findPersons");
-        Query personId = query.setParameter("personId", 3L);
         List resultList = query.getResultList();
         return  resultList;
     }

@@ -11,8 +11,7 @@ import java.util.List;
 @DiscriminatorColumn(name = "sex", discriminatorType = DiscriminatorType.INTEGER)
 @NamedQueries({
         @NamedQuery(name = "Person.findPersons", query = "SELECT p FROM Person p " +
-                "LEFT join fetch p.passports ps LEFT JOIN fetch p.birthCertificate " +
-                "WHERE p.personId = :personId ")
+                "LEFT join fetch p.passports ps LEFT JOIN fetch p.birthCertificate ")
 })
 public abstract class  Person {
     @Id
