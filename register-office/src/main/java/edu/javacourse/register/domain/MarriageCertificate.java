@@ -1,11 +1,13 @@
 package edu.javacourse.register.domain;
 
 
-
 import javax.persistence.*;
 import java.time.LocalDate;
+
 @Table(name = "ro_marriage_certificate")
 @Entity
+@NamedQuery(name = "MarriageCertificate.findByNum",
+        query = "SELECT mc from MarriageCertificate mc where mc.number = :number")
 public class MarriageCertificate {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
