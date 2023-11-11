@@ -19,7 +19,7 @@ import org.springframework.transaction.annotation.Transactional;
 import java.time.LocalDate;
 import java.util.List;
 
-@Service
+@Service("marriageService")
 @Scope(ConfigurableBeanFactory.SCOPE_SINGLETON)
 public class MarriageManager {
     private static final Logger LOGGER = LoggerFactory.getLogger(MarriageManager.class);
