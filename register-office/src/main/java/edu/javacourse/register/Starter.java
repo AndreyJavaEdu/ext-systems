@@ -10,8 +10,8 @@ public class Starter {
         ApplicationContext context =
                 new ClassPathXmlApplicationContext("applicationContext.xml");
 
-        MarriageController controller = context.getBean("controller", MarriageController.class);
-        controller.findMarriageCertificate(new MarriageRequest());
+//        MarriageController controller = context.getBean("controller", MarriageController.class);
+//        controller.findMarriageCertificate(new MarriageRequest());
 
     }
 }
